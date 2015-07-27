@@ -1,8 +1,11 @@
 #!/bin/sh
 TAG="sugarcrm751"
 
-#Kill previsou sugarcrm751 container
-docker kill sugarcrm751 && docker rm sugarcrm751
+#Kill and destroy previous sugarcrm751 container
+docker rm -f $TAG
 
 #Build once
 docker build --rm -t $TAG .
+
+#Run container now
+./run.sh

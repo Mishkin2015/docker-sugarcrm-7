@@ -100,7 +100,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install openjdk-7-jre-headless -y
 #ElasticSearch install
 RUN wget --no-check-certificate https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.3.1.deb &&\
     dpkg -i elasticsearch-1.3.1.deb &&\
-    service elasticsearch start
+    rm elasticsearch-1.3.1.deb
 
 EXPOSE 9200
 
