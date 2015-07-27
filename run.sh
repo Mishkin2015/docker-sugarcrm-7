@@ -3,7 +3,7 @@ TAG="sugarcrm751"
 
 #map sugarcrm7 dir and apache dir
 docker rm -f $TAG
-docker run -v $PWD/crm:/var/www -v $PWD/mysql/data:/var/lib/mysql -d -p 80:80 -p 3306:3306 -p 9200:9200 --name=$TAG $TAG
+docker run -v $PWD/crm:/var/www/sugarcrm -v $PWD/mysql/data:/var/lib/mysql -d -p 80:80 -p 3306:3306 -p 9200:9200 --name=$TAG $TAG
 
 #launch basic command in the container
 CONTAINER_ID=$(docker ps | grep $TAG | awk '{print $1}')
