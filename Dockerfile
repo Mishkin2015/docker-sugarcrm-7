@@ -2,9 +2,7 @@ FROM ubuntu:13.04
 
 MAINTAINER Toumani Housseini, osin@live.com
 #Coming from initial project of Shane Dowling, shane@shanedowling.com
-#Used and tested on SugarCRM 7.5.1
-
-
+#Tested on SugarCRM 7.5.1
 
 ##BASIC SECTION##
 # Set the locale
@@ -85,13 +83,7 @@ VOLUME ["/var/log"]
 
 
 EXPOSE 80
-
-
-
 ###!
-
-
-
 
 ##ELASTIC SEARCH SECTION##
 # Install java
@@ -112,6 +104,3 @@ RUN apt-get clean &&\
         rm -rf /var/lib/apt/lists/*
 
 RUN chmod a+x /start.sh
-
-#actually there're 2 problems;
-#You need to launch yourself startup_mysql.sh to create your admin user

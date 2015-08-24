@@ -7,3 +7,8 @@ Actually i'm trying to build it on 7.5 version of Sugar.
 To use it you have to specify in your host sugar.dev hostname
 
 127.0.0.1 sugar.dev
+
+Test first before
+
+To configure definitively mysql password see files/startup_mysql
+To configure hostnamesee files/vhost.conf
