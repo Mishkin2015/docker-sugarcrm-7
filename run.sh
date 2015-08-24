@@ -24,7 +24,7 @@ if [ -f $FILE ]; then
         esac
         echo "$line"
     done <"$FILE" > temp
-    echo ");" >> temp
+#    echo ");" >> temp
     mv temp $FILE
 fi
 

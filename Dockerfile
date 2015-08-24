@@ -62,10 +62,6 @@ ADD files/vhost.conf /etc/apache2/sites-available/sugarcrm
 # Ensure PHP log file exists and is writable
 RUN touch /var/log/php_errors.log && chmod a+w /var/log/php_errors.log
 
-# Our start-up script
-ADD files/start.sh /start.sh
-RUN chmod a+x /start.sh
-
 # Apache tweaks and turn on some crucial apache mods
 RUN sed -i -r 's/AllowOverride None$/AllowOverride All/' /etc/apache2/apache2.conf
 RUN a2enmod rewrite headers filter
@@ -77,10 +73,6 @@ RUN apache2ctl restart
 #Mount volume
 VOLUME ["/var/www/sugarcrm"]
 VOLUME ["/var/log"]
-
-#Not working with mysql
-#ENTRYPOINT ["/start.sh"]
-
 
 EXPOSE 80
 ###!
@@ -102,5 +94,3 @@ EXPOSE 9200
 #Clean
 RUN apt-get clean &&\
         rm -rf /var/lib/apt/lists/*
-
-RUN chmod a+x /start.sh
