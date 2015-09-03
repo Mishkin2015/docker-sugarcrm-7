@@ -94,3 +94,6 @@ EXPOSE 9200
 #Clean
 RUN apt-get clean &&\
         rm -rf /var/lib/apt/lists/*
+
+#Create php error files
+RUN touch /var/www/php_errors.log && chown www-data:www-data /var/www/php_errors.log && chmod 777 /var/www/php_errors.log
