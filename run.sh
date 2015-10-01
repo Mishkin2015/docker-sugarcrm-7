@@ -1,5 +1,6 @@
 #!/bin/sh
 TAG="sugarcrm751"
+FILE=$PWD/crm/config.php
 
 #map sugarcrm7 dir and apache dir
 docker rm -f $TAG
@@ -14,13 +15,19 @@ docker exec $CONTAINER_ID service apache2 start
 docker exec $CONTAINER_ID echo "Launch elastic search service "
 docker exec $CONTAINER_ID service elasticsearch start
 
-FILE=$PWD/crm/config.php
+
 if [ -f $FILE ]; then
     echo "Updating db Hostname in config file"
     while read -r line
     do
         case "$line" in
         "'db_host_name' =>"* ) line="'db_host_name' => '"$CONTAINER_ID"',"
+        esac
+        case "$line" in
+        "'db_user_name' =>"* ) line="'db_user_name' => 'admin',"
+        esac
+        case "$line" in
+        "'db_password' =>"* ) line="'db_password' => 'changeme',"
         esac
         echo "$line"
     done <"$FILE" > temp
