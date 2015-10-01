@@ -35,20 +35,6 @@ if [ -f $FILE ]; then
     mv temp $FILE
 fi
 
-FILE_SI=$PWD/crm/config.php
-if [ -f FILE_SI ]; then
-    echo "Updating db Hostname in config_si file"
-    while read -r line
-    do
-        case "$line" in
-        "'setup_db_host_name' =>"* ) line="'db_host_name' => '"$CONTAINER_ID"',"
-        esac
-        echo "$line"
-    done <"$FILE_SI" > temp
-    echo ");" >> temp
-    mv temp $FILE
-fi
-
 #launch finish
 echo "open bash in container by running these command >> docker exec -it sugarcrm751 /bin/bash"
 echo "CONTAINER HOSTNAME is "$CONTAINER_ID
