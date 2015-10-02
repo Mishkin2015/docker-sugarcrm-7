@@ -1,0 +1,27 @@
+#!/bin/sh
+
+echo "Begin configuration file reading\n"
+
+tag="aTagToRecognizeContainer";
+echo "Tag of docker container: $tag"
+
+sugarConfigFile="$PWD/../$tag/config.php"
+echo "Sugarcrm configuration file: $sugarConfigFile"
+
+sugarDir="$PWD/../$tag"
+echo "Sugarcrm directory location: $sugarDir"
+
+mysqlDir="$PWD/mysql/data"
+echo "MySql data directory location IS $mysqlDir"
+
+mysqlUser="admin"
+mysqlPassword="changeme"
+echo "MySql user registered: '$mysqlUser:$mysqlPassword'@'%'"
+
+containerId=$(docker ps | grep $tag | awk '{print $1}')
+echo "Container Id: $containerId"
+
+containerIp=$(docker inspect --format='{{.NetworkSettings.IPAddress}}' $containerId)
+echo "Container Ip: $containerIp"
+
+echo "\nEnd configuration file reading"

@@ -1,40 +1,34 @@
-#!/bin/sh
-TAG="sugarcrm751"
-FILE=$PWD/crm/config.php
-
+source config.sh
 #map sugarcrm7 dir and apache dir
-docker rm -f $TAG
-docker run -v $PWD/crm:/var/www/sugarcrm -v $PWD/mysql/data:/var/lib/mysql -d -p 80:80 -p 3306:3306 -p 9200:9200 --name=$TAG $TAG
+docker rm -f $tag
+docker run -v $sugarDir:/var/www/sugarcrm -v $mysqlDir:/var/lib/mysql -d -p 80:80 -p 3306:3306 -p 9200:9200 --name=$tag $tag
+source config.sh
 
 #launch basic command in the container
-CONTAINER_ID=$(docker ps | grep $TAG | awk '{print $1}')
+docker exec $containerId echo "Launch apache service"
+docker exec $containerId service apache2 start
+docker exec $containerId echo "Launch elastic search service "
+docker exec $containerId service elasticsearch start
 
-
-docker exec $CONTAINER_ID echo "Launch apache service"
-docker exec $CONTAINER_ID service apache2 start
-docker exec $CONTAINER_ID echo "Launch elastic search service "
-docker exec $CONTAINER_ID service elasticsearch start
-
-
-if [ -f $FILE ]; then
+if ([ -f $sugarConfigFile ]); then
     echo "Updating db Hostname in config file"
     while read -r line
     do
         case "$line" in
-        "'db_host_name' =>"* ) line="'db_host_name' => '"$CONTAINER_ID"',"
+        "'db_host_name' =>"* ) line="'db_host_name' => '"$containerId"',"
         esac
         case "$line" in
-        "'db_user_name' =>"* ) line="'db_user_name' => 'admin',"
+        "'db_user_name' =>"* ) line="'db_user_name' => '"$mysqlUser"',"
         esac
         case "$line" in
-        "'db_password' =>"* ) line="'db_password' => 'changeme',"
+        "'db_password' =>"* ) line="'db_password' => '"$mysqlPassword"',"
         esac
         echo "$line"
-    done <"$FILE" > temp
+    done <"$sugarConfigFile" > temp
     echo ");" >> temp
-    mv temp $FILE
+    mv temp $sugarConfigFile
 fi
 
 #launch finish
-echo "open bash in container by running these command >> docker exec -it sugarcrm751 /bin/bash"
-echo "CONTAINER HOSTNAME is "$CONTAINER_ID
+echo "open bash in container by running these command >> docker exec -it "$tag" /bin/bash"
+echo "CONTAINER HOSTNAME is "$containerId
