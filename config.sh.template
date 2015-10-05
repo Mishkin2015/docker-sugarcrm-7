@@ -5,11 +5,11 @@ echo "Begin configuration file reading\n"
 tag="crm";
 echo "Tag of docker container: $tag"
 
-sugarConfigFile="$PWD/$tag/config.php"
-echo "Sugarcrm configuration file: $sugarConfigFile"
-
 sugarDir="$PWD/$tag"
 echo "Sugarcrm directory location: $sugarDir"
+
+sugarConfigFile="$sugarDir/config.php"
+echo "Sugarcrm configuration file: $sugarConfigFile"
 
 mysqlDir="$PWD/mysql/data"
 echo "MySql data directory location IS $mysqlDir"
