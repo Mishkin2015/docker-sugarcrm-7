@@ -1,7 +1,7 @@
 source config.sh
 #map sugarcrm7 dir and apache dir
 docker rm -f $tag
-docker run -v $sugarDir:/var/www/sugarcrm -v $mysqlDir:/var/lib/mysql -d -p 80:80 -p 3306:3306 -p 9200:9200 --name=$tag $tag
+docker run -v $sugarDir:/var/www/sugarcrm -v $mysqlDir:/var/lib/mysql -v $PWD/pma:/var/www/pma -d -p 80:80 -p 3306:3306 -p 9200:9200 --name=$tag $tag
 source config.sh
 
 #launch basic command in the container
