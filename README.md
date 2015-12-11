@@ -12,3 +12,7 @@ Test first before
 
 To configure definitively mysql password see files/startup_mysql
 To configure hostnamesee files/vhost.conf
+
+** Now deprecated **
+I recommande to use docker compose to make your sugarcrm docker
+You can find link to the docker directly here http://developer.sugarcrm.com/2015/10/07/getting-started-with-docker-and-sugar-7/
